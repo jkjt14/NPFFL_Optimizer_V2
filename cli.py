@@ -1,3 +1,4 @@
+cat > dfs_opt/cli.py << 'PY'
 from __future__ import annotations
 import argparse
 import pandas as pd
@@ -75,3 +76,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+PY
