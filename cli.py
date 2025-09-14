@@ -69,3 +69,17 @@ def main():
 if __name__ == "__main__":
     main()
 
+# before
+for i,(sal) in enumerate([4000,3600,3200], start=1):
+    rows.append({"player_id":f"DEF{i}","name":f"Shield {i}","team":"D{i}","pos":"DEF","salary":sal,...
+
+# after
+for i, sal in enumerate([4000, 3600, 3200], start=1):
+    rows.append({
+        "player_id": f"DEF{i}",
+        "name": f"Shield {i}",
+        "team": f"D{i}",  # <-- f-string
+        "pos": "DEF",
+        "salary": sal,
+        "pass_yd": 0, "pass_td": 0, "rush_yd": 0, "rush_td": 0, "rec": 0, "rec_yd": 0, "rec_td": 0
+    })
