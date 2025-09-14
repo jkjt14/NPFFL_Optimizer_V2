@@ -30,9 +30,16 @@ def _demo_pool() -> pd.DataFrame:
     # TE (3)
     for i,(sal,rec,ryd,td) in enumerate([(6400,6,55,1),(5200,5,40,0),(4200,3,35,0)], start=1):
         rows.append({"player_id":f"TE{i}","name":f"Tight {i}","team":"TEX","pos":"TE","salary":sal,"pass_yd":0,"pass_td":0,"rush_yd":0,"rush_td":0,"rec":rec,"rec_yd":ryd,"rec_td":td})
-    # DEF (3)
-    for i,(sal) in enumerate([4000,3600,3200], start=1):
-        rows.append({"player_id":f"DEF{i}","name":f"Shield {i}","team":"D{i}","pos":"DEF","salary":sal,"pass_yd":0,"pass_td":0,"rush_yd":0,"rush_td":0,"rec":0,"rec_yd":0,"rec_td":0})
+    # DEF (3)  <-- fixed f-string
+    for i, sal in enumerate([4000, 3600, 3200], start=1):
+        rows.append({
+            "player_id": f"DEF{i}",
+            "name": f"Shield {i}",
+            "team": f"D{i}",
+            "pos": "DEF",
+            "salary": sal,
+            "pass_yd": 0, "pass_td": 0, "rush_yd": 0, "rush_td": 0, "rec": 0, "rec_yd": 0, "rec_td": 0
+        })
     return pd.DataFrame(rows)
 
 def cmd_version(_args):
@@ -68,18 +75,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# before
-for i,(sal) in enumerate([4000,3600,3200], start=1):
-    rows.append({"player_id":f"DEF{i}","name":f"Shield {i}","team":"D{i}","pos":"DEF","salary":sal,...
-
-# after
-for i, sal in enumerate([4000, 3600, 3200], start=1):
-    rows.append({
-        "player_id": f"DEF{i}",
-        "name": f"Shield {i}",
-        "team": f"D{i}",  # <-- f-string
-        "pos": "DEF",
-        "salary": sal,
-        "pass_yd": 0, "pass_td": 0, "rush_yd": 0, "rush_td": 0, "rec": 0, "rec_yd": 0, "rec_td": 0
-    })
