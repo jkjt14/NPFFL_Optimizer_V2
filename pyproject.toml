@@ -12,3 +12,8 @@ dependencies = [
   "pyyaml",
   "ortools",
 ]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["dfs_opt*"]
+
