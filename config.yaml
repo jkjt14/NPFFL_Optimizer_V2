@@ -1,0 +1,20 @@
+salary_cap: 60000
+roster:
+  QB: 1
+  RB: 2
+  WR: 3
+  TE: 1
+  FLEX: 1
+  DEF: 1
+
+scoring:
+  pass_td: 4
+  pass_yd_pt_per: 25
+  pass_bonus_300: 1
+  pass_bonus_400: 2
+  rush_yd_pt_per: 10
+  rush_bonus_100: 1
+  rush_bonus_200: 2
+  rec_yd_pt_per: 10
+  rec_ppr: 0.5
+  te_rec_ppr: 1.0
