@@ -2,7 +2,8 @@ from __future__ import annotations
 import pandas as pd
 from ortools.sat.python import cp_model
 
-def solve_lineup(players_df: pd.DataFrame, cfg: dict, objective: str = "points") -> dict:
+def solve_lineup(players_df: pd.DataFrame, cfg: dict, objective: str = "points",
+                 enforce_stack: bool = False, max_from_team: int | None = None) -> dict:
     df = players_df.reset_index(drop=True).copy()
     required_cols = {"player_id","name","team","pos","salary","ProjPoints"}
     missing = required_cols - set(df.columns)
