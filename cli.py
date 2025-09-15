@@ -63,12 +63,35 @@ def cmd_run_demo(_args):
     print(f"  Proj:   {result['total_proj']:.2f}")
     print(f"  Counts: {result['count']}")
 
+def cmd_run_demo_adv(args):
+    cfg = load_config()
+    pool = _demo_pool()
+    pool = apply_custom_scoring(pool, cfg)
+    result = solve_lineup(
+        pool, cfg,
+        objective="points",
+        enforce_stack=args.stack,
+        max_from_team=args.max_team,
+    )
+    chosen = result["players"]
+    df = pd.DataFrame(chosen, columns=["pos","name","team","salary","ProjPoints"])\
+           .sort_values(["pos","ProjPoints"], ascending=[True,False])
+    print(df.to_string(index=False))
+    print("\nTotals:")
+    print(f"  Salary: {result['total_salary']}")
+    print(f"  Proj:   {result['total_proj']:.2f}")
+    print(f"  Counts: {result['count']}")
+
 def main():
     parser = argparse.ArgumentParser(prog="dfs_opt")
     sub = parser.add_subparsers(required=True)
     p_ver = sub.add_parser("version", help="print version")
     p_ver.set_defaults(func=cmd_version)
     p_demo = sub.add_parser("run-demo", help="run a synthetic demo solve")
+    p_demo2 = sub.add_parser("run-demo-adv", help="demo with extra constraints")
+    p_demo2.add_argument("--stack", action="store_true", help="Require QB + same-team WR/TE (demo pool will be infeasible)")
+    p_demo2.add_argument("--max-team", type=int, help="Max players allowed from any single team")
+    p_demo2.set_defaults(func=cmd_run_demo_adv)
     p_demo.set_defaults(func=cmd_run_demo)
     args = parser.parse_args()
     args.func(args)
